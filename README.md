@@ -1,0 +1,5 @@
+## Projeto de Lógica para Computação (2026.1)
+
+**Objetivo:** Utilizar o Alloy Analyzer e a lógica de predicados para validar design de software dada uma especificação inicial.
+
+**Especificação inicial**: "A UFCG deseja organizar as monitorias para disciplinas do curso de Ciência da Computação. Os monitores são necessariamente alunos da universidade e cada monitor é habilitado para auxiliar em uma disciplina. Todo aluno deve estar matriculado em, no mínimo, três disciplinas e só pode participar de uma sessão relacionada a uma disciplina na qual esteja matriculado. Cada sessão ocorre em uma sala, deve ser conduzida por um monitor e está associada a uma disciplina. Um monitor só pode conduzir sessões da disciplina para a qual está habilitado. Cada sessão possui entre um e dez participantes, e seu monitor não pode participar dela como aluno. Uma sala não pode sediar duas sessões simultâneas. Nenhum aluno pode estar envolvido em duas sessões no mesmo horário, seja como participante ou como monitor. Salas e disciplinas podem existir sem sessões."
