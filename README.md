@@ -14,7 +14,7 @@ Para representar o domínio, precisaremos criar as seguintes assinaturas (`sig`)
 * **`Disciplina`**: Representa as matérias ofertadas. Pode existir independentemente de ter sessões.
 * **`Sala`**: Local físico. Pode existir sem sediar nenhuma sessão.
 * **`Horario`**: Necessário para lidar com a concorrência e garantir que não há choques de agenda.
-* **`Aluno`**: Entidade base. Possui relação com as `Disciplina`s nas quais está matriculado.
+* **`Aluno`**: Entidade base. Possui relação com as `Disciplinas` nas quais está matriculado.
 * **`Monitor`**: Subconjunto/Especialização de `Aluno` (`sig Monitor in Aluno` ou `extends`). Possui uma habilitação específica.
 * **`Sessao`**: O evento em si. Agrupa uma disciplina, um monitor, uma sala, um horário e um conjunto de alunos participantes.
 
@@ -24,17 +24,17 @@ Para representar o domínio, precisaremos criar as seguintes assinaturas (`sig`)
 Nossos blocos de `fact` deverão garantir as seguintes restrições:
 
 ### 1. Regras Acadêmicas (Cardinalidade e Matrícula)
-- [ ] Todo `Aluno` deve estar matriculado em, no mínimo, **3 disciplinas**.
-- [ ] Todo `Monitor` é habilitado para exatamente **1 disciplina**.
+- [X] Todo `Aluno` deve estar matriculado em, no mínimo, **3 disciplinas**.
+- [X] Todo `Monitor` é habilitado para exatamente **1 disciplina**.
 
 ### 2. Regras de Formação da Sessão
-- [ ] Cada `Sessao` está associada a exatamente: **1 Sala**, **1 Disciplina** e **1 Monitor**.
-- [ ] A quantidade de alunos participantes em uma `Sessao` deve ser **entre 1 e 10**.
-- [ ] O `Monitor` da sessão **deve** ser habilitado na disciplina daquela sessão.
+- [X] Cada `Sessao` está associada a exatamente: **1 Sala**, **1 Disciplina** e **1 Monitor**.
+- [X] A quantidade de alunos participantes em uma `Sessao` deve ser **entre 1 e 10**.
+- [X] O `Monitor` da sessão **deve** ser habilitado na disciplina daquela sessão.
 
 ### 3. Regras de Participação e Conflitos de Interesse
-- [ ] Um `Aluno` só pode participar de uma `Sessao` se a disciplina da sessão estiver na sua lista de matrículas.
-- [ ] O `Monitor` que está conduzindo a sessão **não pode** estar na lista de participantes (alunos) desta mesma sessão.
+- [X?] Um `Aluno` só pode participar de uma `Sessao` se a disciplina da sessão estiver na sua lista de matrículas.
+- [X?] O `Monitor` que está conduzindo a sessão **não pode** estar na lista de participantes (alunos) desta mesma sessão.
 
 ### 4. Regras de Tempo e Espaço (Simultaneidade)
 - [ ] **Choque de Sala:** Uma `Sala` não pode sediar duas ou mais `Sessao`s no mesmo `Horario`.

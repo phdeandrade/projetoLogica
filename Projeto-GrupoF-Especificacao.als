@@ -1,25 +1,56 @@
-//Teste para ver o Alloy funcionando
-
-abstract sig Objeto {}
-
-sig Arquivo extends Objeto {}
-
-sig Diretorio extends Objeto {
-    conteudo: set Objeto
+sig Aluno {
+    matriculas: set Disciplina
+}
+sig Monitor extends Aluno {
+    habilitacao: one Disciplina 
 }
 
-one sig Raiz extends Diretorio {}
-
-fact RegrasDoSistema {
-    all o: Objeto - Raiz | one d: Diretorio | o in d.conteudo
-    no Raiz.(~conteudo)
-    all d: Diretorio | d not in d.^conteudo
+sig Disciplina {
+    monitores: set Monitor
 }
 
-assert SemDiretoriosOrfaos {
-    all d: Diretorio - Raiz | d in Raiz.^conteudo
+sig Sala {}
+
+sig Horario {}
+
+sig Sessao {
+    disciplina: one Disciplina,
+    monitor: one Monitor,
+    sala: one Sala,
+    horario: one Horario,
+    alunos: set Aluno
 }
 
-GerarExemplo: run {} for 3 but exactly 2 Diretorio
+fact regrasAluno {
+    all aluno: Aluno | #aluno.matriculas >= 3
+}
 
-check SemDiretoriosOrfaos for 4
+fact regrasMonitor {
+    all monitor: Monitor {
+        #monitor.habilitacao = 1
+        monitor.habilitacao not in monitor.matriculas 
+    }
+}
+
+fact regrasSessao {
+    all sessao: Sessao {
+        #sessao.disciplina = 1
+        #sessao.sala = 1
+        #sessao.monitor = 1
+        sessao.monitor.habilitacao = sessao.disciplina
+        #sessao.alunos >= 1 and #sessao.alunos <= 10
+    }
+}
+
+fact regrasParticipacao {
+    all sessao: Sessao {
+        all aluno: sessao.alunos {
+            sessao.disciplina in aluno.matriculas
+            sessao.monitor != aluno
+        }
+    }
+}
+
+fact choqueDeSala { 
+    no sessao1, sessao2: Sessao | sessao1 != sessao2 and sessao1.sala = sessao2.sala and sessao1.horario = sessao2.horario
+}
