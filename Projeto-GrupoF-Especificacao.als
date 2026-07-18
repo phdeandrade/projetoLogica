@@ -52,5 +52,33 @@ fact regrasParticipacao {
 }
 
 fact choqueDeSala { 
-    no sessao1, sessao2: Sessao | sessao1 != sessao2 and sessao1.sala = sessao2.sala and sessao1.horario = sessao2.horario
+    no sessao1, sessao2: Sessao {
+        sessao1 != sessao2
+        sessao1.sala = sessao2.sala
+        sessao1.horario = sessao2.horario
+    } 
+}
+
+fact choqueDeHorarios {
+    no sessao1, sessao2: Sessao {
+        sessao1 != sessao2
+        sessao1.sala = sessao2.sala
+        sessao1.horario = sessao2.horario
+        all aluno1: sessao1.alunos {
+            all aluno2: sessao2.alunos {
+                aluno1 = aluno2
+            }
+        }
+    } 
+}
+
+fact choqueDeHorarios {
+    no sessao1, sessao2: Sessao {
+        sessao1 != sessao2
+        sessao1.horario = sessao2.horario
+        some aluno: Aluno {
+            aluno in sessao1.alunos or aluno = sessao1.monitor
+            aluno in sessao2.alunos or aluno = sessao2.monitor
+        }
+    }
 }
