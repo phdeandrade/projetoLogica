@@ -38,7 +38,7 @@ Nossos blocos de `fact` deverão garantir as seguintes restrições:
 
 ### 4. Regras de Tempo e Espaço (Simultaneidade)
 - [X] **Choque de Sala:** Uma `Sala` não pode sediar duas ou mais `Sessao`s no mesmo `Horario`.
-- [ ] **Choque de Indivíduo:** Nenhum `Aluno` (seja atuando como participante ou como monitor) pode estar vinculado a duas `Sessao`s que ocorrem no mesmo `Horario`.
+- [X?] **Choque de Indivíduo:** Nenhum `Aluno` (seja atuando como participante ou como monitor) pode estar vinculado a duas `Sessao`s que ocorrem no mesmo `Horario`.
 
 ---
 
