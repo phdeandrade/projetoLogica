@@ -25,9 +25,23 @@ fact regrasAluno {
     all aluno: Aluno | #aluno.matriculas >= 3
 }
 
+// nesse fact aqui eu adicionei que o monitor tem q estar na lista
+// de alguma disciplina, achei melhor do que colocar no fact novo que fiz
+// mas fiquem a vontade pra mudar, só tem q ter essa condicao
 fact regrasMonitor {
     all monitor: Monitor {
         monitorHabilitado[monitor]
+        monitorEstaNaListaDeAlgumaDisciplina[monitor]
+    }
+}
+
+// aqui fiz um fato que corrige o bug que encontramos ontem
+// antes não era obrigatorio que todos os monitores que tinham
+// habilitacao para a disciplina estivessem na lista de monitores
+// da disciplina, com esse fact da certo
+fact regraMonitoresDisciplinaCorretos {
+    all disciplina: Disciplina {
+        disciplinaTemMonitoresComHabilitacaoCorreta[disciplina]
     }
 }
 
@@ -68,6 +82,18 @@ pred monitorHabilitado[m: Monitor] {
 pred monitorHabilitadoSessao[m: Monitor, s: Sessao] {
     monitorHabilitado[m]
     m.habilitacao = s.disciplinaSessao
+}
+
+// aqui ta o predicado que usei pra organizar o fact la em cima
+pred monitorEstaNaListaDeAlgumaDisciplina[m: Monitor] {
+    m in m.habilitacao.monitoresDisciplina
+}
+
+// aqui checa se os monitores da disciplina sao habilitados pra ela mesmo
+pred disciplinaTemMonitoresComHabilitacaoCorreta[d: Disciplina] {
+    all m: d.monitoresDisciplina {
+        m.habilitacao = d
+    }
 }
 
 pred respeitaLimiteSessao[s: Sessao] {
