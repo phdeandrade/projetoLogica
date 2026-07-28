@@ -41,10 +41,8 @@ sig Monitor extends Aluno {
     habilitacao: one Disciplina
 }
 
-// Representa uma Disciplina no modelo. As Disciplinas possuem um conjunto de Monitores associados a ela.
-sig Disciplina {
-    monitoresDisciplina: set Monitor
-}
+// Representa uma Disciplina no modelo.
+sig Disciplina {}
 
 // Representa uma sessão de Monitoria, dada por um único Monitor; possui Sala e Horário únicos e comporta um número limitado de Alunos.
 sig Sessao {
@@ -77,22 +75,11 @@ fact regrasAluno {
 
 /*
 Representa as regras de validação para Monitores.
-Garante que, para todos os Monitores, cada um possui habilitação válida em uma disciplina
-e que ele está monitorando alguma Disciplina.
+Garante que, para todos os Monitores, cada um possui habilitação válida em uma disciplina.
 */
 fact regrasMonitor {
     all monitor: Monitor {
         monitorHabilitado[monitor]
-        monitorEstaNaListaDeAlgumaDisciplina[monitor]
-    }
-}
-
-/*
-Garante que todas as Disciplinas aceitem apenas Monitores habilitados para ela.
-*/
-fact regraMonitoresDisciplinaCorretos {
-    all disciplina: Disciplina {
-        disciplinaTemMonitoresComHabilitacaoCorreta[disciplina]
     }
 }
 
@@ -157,23 +144,6 @@ Predicado: "Um Monitor só pode ministrar uma Sessão se a Habilitação dele fo
 pred monitorHabilitadoSessao[m: Monitor, s: Sessao] {
     monitorHabilitado[m]
     m.habilitacao = s.disciplinaSessao
-}
-
-/*
-Predicado: "Um Monitor habilitado em certa Disciplina deve estar na lista
-de Monitores habilitados dela."
-*/
-pred monitorEstaNaListaDeAlgumaDisciplina[m: Monitor] {
-    m in m.habilitacao.monitoresDisciplina
-}
-
-/*
-Predicado: "Todo Monitor associado a uma Disciplina deve possui Habilitação nela."
-*/
-pred disciplinaTemMonitoresComHabilitacaoCorreta[d: Disciplina] {
-    all m: d.monitoresDisciplina {
-        m.habilitacao = d
-    }
 }
 
 /*
